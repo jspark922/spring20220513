@@ -13,7 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<my:navBar current='list'/>
+	<my:navBar current='list'></my:navBar>
 	<div class="container">
 		<div class="row">
 			<div class="col">
@@ -31,8 +31,7 @@
 							<tr>
 								<td>${board.id }</td>
 								<td>
-									<c:url value="/board/${board.id }" var="link" />
-									<a href="${link }">${board.title }</a>								
+									<a href="${appRoot }/board/${board.id }">${board.title }</a>								
 								</td>
 								<td>${board.inserted }</td>
 							</tr>

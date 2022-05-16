@@ -14,7 +14,7 @@ public class BoardService {
 
 	@Autowired
 	private BoardMapper mapper;
-
+	
 	public List<BoardDto> getBoardList() {
 		// TODO Auto-generated method stub
 		return mapper.selectBoard();
@@ -25,6 +25,12 @@ public class BoardService {
 		return mapper.selectBoardById(id);
 	}
 
+	public boolean updateBoard(BoardDto board) {
+		int cnt = mapper.updateBoard(board);
+		
+		return cnt == 1;
+	}
+
 	public boolean addBoard(BoardDto board) {
 		board.setInserted(LocalDateTime.now());
 		
@@ -32,5 +38,11 @@ public class BoardService {
 		
 		return cnt == 1;
 	}
+
+	public boolean removeBoardByID(int id) {
+		int cnt = mapper.deleteBoard(id);
+		return cnt == 1;
+	}
+
 
 }

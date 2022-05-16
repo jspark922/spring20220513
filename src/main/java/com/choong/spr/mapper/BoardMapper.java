@@ -10,6 +10,11 @@ public interface BoardMapper {
 
 	BoardDto selectBoardById(int id);
 
+	int updateBoard(BoardDto board);
+
 	int insertBoard(BoardDto board);
+
+	int deleteBoard(int id);
+
 
 }
