@@ -31,7 +31,13 @@
 							<tr>
 								<td>${board.id }</td>
 								<td>
-									<a href="${appRoot }/board/${board.id }">${board.title }</a>								
+									<a href="${appRoot }/board/${board.id }">${board.title }</a>
+									<c:if test="${board.numOfReply > 0}">
+										<span>
+											<i class="fa-solid fa-comments"></i>
+											${board.numOfReply }
+										</span>
+									</c:if>						
 								</td>
 								<td>${board.inserted }</td>
 							</tr>

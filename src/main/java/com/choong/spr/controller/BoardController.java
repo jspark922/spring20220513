@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choong.spr.domain.BoardDto;
+import com.choong.spr.domain.ReplyDto;
 import com.choong.spr.service.BoardService;
+import com.choong.spr.service.ReplyService;
 
 @Controller
 @RequestMapping("board")
@@ -20,6 +22,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService service;
+	
+	@Autowired
+	private ReplyService replyService;
 	
 	@GetMapping("list")
 	public void BoardList(BoardDto board, Model model) {
@@ -32,7 +37,10 @@ public class BoardController {
 	public String getBoard(@PathVariable("id") int id, Model model) {
 		BoardDto board = service.getBoard(id);
 		
+		List<ReplyDto> replyList = replyService.listReplyByBoardId(id);
+		
 		model.addAttribute("board", board);
+		model.addAttribute("replyList", replyList);
 		
 		return "/board/get";
 	}
