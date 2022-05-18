@@ -44,6 +44,9 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				<div class="mt-3">
+					<my:PageNation path="list" />
+				</div>
 			</div>
 		</div>
 	</div>

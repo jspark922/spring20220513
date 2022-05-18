@@ -7,16 +7,26 @@
   	SELECT b.id, 
   		   b.title, 
   		   b.inserted, 
-  		   COUNT(r.id) numOfReply
+  		   COUNT(r.id) numOfReply 
   	FROM Board b LEFT JOIN Reply r ON b.id = r.board_id
   	GROUP BY b.id
   	ORDER BY id DESC
+  	LIMIT #{from }, #{row }
+	</select>
+	
+	<select id="countBoard" resultType="int">
+	SELECT Count(id) 
+	FROM Board
 	</select>
 	
 	<select id="selectBoardById" resultType="com.choong.spr.domain.BoardDto">
-	SELECT id, title, body, inserted
-	FROM Board
-	WHERE id = #{id};
+	SELECT b.id,
+		   b.title,
+		   b.body, 
+		   b.inserted,
+		   COUNT(r.id) numOfReply 
+	FROM Board b LEFT JOIN Reply r ON b.id = r.board_id 
+	WHERE b.id = #{id};
 	</select>
 	
 	<update id="updateBoard">
@@ -26,7 +36,7 @@
 	WHERE id = #{id}
 	</update>
 	
-	<insert id="insertBoard">
+	<insert id="insertBoard" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
 	INSERT INTO Board (title, body, inserted) 
 	VALUES (#{title}, #{body}, #{inserted})
 	</insert>

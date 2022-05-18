@@ -20,9 +20,9 @@ public class BoardService {
 	@Autowired
 	private ReplyMapper replyMapper;
 	
-	public List<BoardDto> getBoardList() {
-		// TODO Auto-generated method stub
-		return mapper.selectBoard();
+	public List<BoardDto> getBoardList(int page, int rowPerPage) {
+		int from = (page-1) * rowPerPage;
+		return mapper.selectBoard(from, rowPerPage);
 	}
 
 	public BoardDto getBoard(int id) {
@@ -50,6 +50,11 @@ public class BoardService {
 		
 		int cnt = mapper.deleteBoard(id);
 		return cnt == 1;
+	}
+
+	public int countCustomers() {
+		// TODO Auto-generated method stub
+		return mapper.countBoard();
 	}
 
 

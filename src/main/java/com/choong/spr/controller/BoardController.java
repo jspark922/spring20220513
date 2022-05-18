@@ -9,9 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.choong.spr.domain.BoardDto;
+import com.choong.spr.domain.PageInfoDto;
 import com.choong.spr.domain.ReplyDto;
 import com.choong.spr.service.BoardService;
 import com.choong.spr.service.ReplyService;
@@ -27,9 +29,18 @@ public class BoardController {
 	private ReplyService replyService;
 	
 	@GetMapping("list")
-	public void BoardList(BoardDto board, Model model) {
-		List<BoardDto> list = service.getBoardList();
+	public void BoardList(@RequestParam(name="page", defaultValue = "1")int page ,Model model) {
+		int rowPerPage = 5;
+		List<BoardDto> list = service.getBoardList(page, rowPerPage);
+		int totalRecords = service.countCustomers();
 		
+		int end = (totalRecords -1) / rowPerPage + 1;
+		
+		PageInfoDto pageInfo = new PageInfoDto();
+		pageInfo.setCurrent(page);
+		pageInfo.setEnd(end);
+		
+		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("boardList", list);
 	}
 	

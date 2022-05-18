@@ -16,7 +16,18 @@
 	<select id="selectReplyByBoardId" resultType="com.choong.spr.domain.ReplyDto">
 	SELECT id, board_id boardId, content, inserted 
 	FROM Reply 
-	WHERE board_id = #{boardId}
+	WHERE board_id = #{boardId} 
 	ORDER BY id 
 	</select>
+	
+	<update id="updateReply">
+	UPDATE Reply 
+	SET content = #{content} 
+	WHERE id = #{id}
+	</update>
+	
+	<delete id="deleteReplyByid">
+	DELETE FROM Reply
+	WHERE id = #{id}
+	</delete>
 </mapper>

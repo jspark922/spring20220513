@@ -26,4 +26,16 @@ public class ReplyService {
 		return mapper.selectReplyByBoardId(id);
 	}
 
+	public boolean modifyReply(ReplyDto reply) {
+		int cnt = mapper.updateReply(reply);
+		
+		return cnt == 1;
+	}
+
+	public boolean removeReply(int id) {
+		int cnt = mapper.deleteReplyByid(id);
+		
+		return cnt == 1;
+	}
+
 }

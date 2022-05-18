@@ -12,4 +12,8 @@ public interface ReplyMapper {
 
 	List<ReplyDto> selectReplyByBoardId(int id);
 
+	int updateReply(ReplyDto reply);
+
+	int deleteReplyByid(int id);
+
 }

@@ -30,6 +30,29 @@
 				form1.submit();
 			}
 		});
+
+		// reply-edit-toggle 버튼 클릭시 댓글 보여주는 div 숨기고,
+		// 수정 form 보여주기
+		$(".reply-edit-toggle-button").click(function() {
+			console.log("버튼클릭");
+			const replyId = $(this).attr("data-reply-id");
+			const displayDivId = "#replyDisplayContainer" + replyId;
+			const editFormId = "#replyEditFormContainer" + replyId;
+			
+			$(displayDivId).hide();
+			$(editFormId).show();
+		});
+		
+		// reply-delete-button 클릭시
+		$(".reply-delete-button").click(function() {
+			const replyId = $(this).attr("data-reply-id");
+			const message = "댓글을 삭제하시겠습니까?";
+			
+			if (confirm(message)) {
+				$("#replyDeleteInput1").val(replyId);
+				$("#replyDeleteForm1").submit();
+			}
+		});
 	});
 </script>
 
@@ -92,6 +115,7 @@
 				<form action="${appRoot }/reply/add" method="post">
 					<div class="input-group">
 						<input type="hidden" name="boardId" value="${board.id }" />
+						<h3 style="border: 1px solid gray; margin-bottom: 0px;">댓글 쓰기</h3>
 						<input class="form-control" type="text" name="content" required /> 
 						<button class="btn btn-outline-secondary"><i class="fa-solid fa-comment-dots"></i></button>
 					</div>
@@ -100,9 +124,11 @@
 		</div>
 	</div>
 	
+	
 	<div class="container mt-3">
 		<div class="row">
 			<div class="col">
+				<h3>댓글 ${board.numOfReply }</h3>
 				<ul class="list-group">
 					<c:forEach items="${replyList }" var="reply">
 						<li class="list-group-item">
@@ -110,7 +136,7 @@
 								<div class="fw-bold"><i class="fa-solid fa-comment"></i> ${reply.prettyInserted}</div>
 							 	${reply.content }
 							 	
-							 	<%-- <button class="reply-edit-toggle-button" id="replyEditToggleButton${reply.id }" data-reply-id="${reply.id }" >
+							 	<button class="reply-edit-toggle-button" id="replyEditToggleButton${reply.id }" data-reply-id="${reply.id }" >
 							 		<i class="fa-solid fa-pen-to-square"></i>
 							 	</button>
 							 	
@@ -123,19 +149,24 @@
 								<form action="${appRoot }/reply/modify" method="post">
 									<div class="input-group">
 										<input type="hidden" name="boardId" value="${board.id }" />
-										<input type="hidden" name="replyId" value="${reply.id }" />
-										<input class="form-control" value="${reply.content }" type="text" name="replyContent" required /> 
+										<input type="hidden" value="${reply.id }" name="id"/>
+										<input class="form-control" value="${reply.content }" type="text" name="content" required /> 
 										<button class="btn btn-outline-secondary"><i class="fa-solid fa-comment-dots"></i></button>
 									</div>
-								</form> --%>
+								</form>
 							</div>
-						 	
-						 	
 						</li>
 					</c:forEach>
 				</ul>
 			</div>
 		</div>
+	</div>
+	
+	<div class="d-none">
+		<form id="replyDeleteForm1" action="${appRoot }/reply/remove" method="post">
+			<input id="replyDeleteInput1" type="text" name="id" />
+			<input type="text" name="boardId" value="${board.id }" />
+		</form>
 	</div>
 </body>
 </html>

@@ -21,4 +21,18 @@ public class ReplyController {
 		return "redirect:/board/" + reply.getBoardId();
 	}
 	
+	@PostMapping("modify")
+	private String modifyReply(ReplyDto reply) {
+		boolean success = service.modifyReply(reply);
+		
+		return "redirect:/board/" + reply.getBoardId();
+	}
+	
+	@PostMapping("remove")
+	private String removeReply(ReplyDto reply) {
+		boolean success = service.removeReply(reply.getId());
+		
+		return "redirect:/board/" + reply.getBoardId();
+	}
+	
 }
