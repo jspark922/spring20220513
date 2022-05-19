@@ -30,7 +30,7 @@ public class BoardController {
 	
 	@GetMapping("list")
 	public void BoardList(@RequestParam(name="page", defaultValue = "1")int page ,Model model) {
-		int rowPerPage = 5;
+		int rowPerPage = 10;
 		List<BoardDto> list = service.getBoardList(page, rowPerPage);
 		int totalRecords = service.countCustomers();
 		
