@@ -8,7 +8,9 @@ import com.choong.spr.domain.BoardDto;
 
 public interface BoardMapper {
 
-	List<BoardDto> selectBoard(@Param("from") int from, @Param("row") int row);
+	List<BoardDto> selectBoard(@Param("from") int from, 
+							   @Param("row") int row, 
+							   @Param("keyword") String keyword);
 
 	BoardDto selectBoardById(int id);
 

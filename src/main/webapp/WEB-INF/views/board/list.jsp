@@ -18,9 +18,10 @@
 		<div class="row">
 			<div class="col">
 				<h1 style="text-align: center;">글 목록</h1>
-				<form action="search" method="post" style="text-align: right;">
-					<input type="text" placeholder="검색어 입력" name="keyword"/>
-					<button><i class="fa-solid fa-magnifying-glass"></i></button>			
+				<c:url value="/board/list" var="listUrl"></c:url>
+				<form action="${listUrl }" style="text-align: right;">
+					<input type="search" placeholder="검색어 입력" name="keyword" />
+					<button class="btn btn-outline-success"><i class="fa-solid fa-magnifying-glass"></i></button>			
 				</form>
 				<table class="table">
 					<thead>

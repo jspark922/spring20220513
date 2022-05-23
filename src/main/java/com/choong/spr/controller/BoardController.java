@@ -29,9 +29,11 @@ public class BoardController {
 	private ReplyService replyService;
 	
 	@GetMapping("list")
-	public void BoardList(@RequestParam(name="page", defaultValue = "1")int page ,Model model) {
+	public void BoardList(@RequestParam(name="page", defaultValue = "1")int page, 
+						  @RequestParam(name = "keyword", defaultValue= "") String keyword, 
+						  Model model) {
 		int rowPerPage = 10;
-		List<BoardDto> list = service.getBoardList(page, rowPerPage);
+		List<BoardDto> list = service.getBoardList(page, rowPerPage, keyword);
 		int totalRecords = service.countCustomers();
 		
 		int end = (totalRecords -1) / rowPerPage + 1;

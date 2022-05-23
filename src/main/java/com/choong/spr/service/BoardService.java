@@ -19,9 +19,9 @@ public class BoardService {
 	@Autowired
 	private ReplyMapper replyMapper;
 	
-	public List<BoardDto> getBoardList(int page, int rowPerPage) {
+	public List<BoardDto> getBoardList(int page, int rowPerPage, String keyword) {
 		int from = (page-1) * rowPerPage;
-		return mapper.selectBoard(from, rowPerPage);
+		return mapper.selectBoard(from, rowPerPage, "%" + keyword + "%");
 	}
 
 	public BoardDto getBoard(int id) {
